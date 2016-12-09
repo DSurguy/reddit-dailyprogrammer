@@ -1,4 +1,4 @@
-var scrabble = require('../scrabble.js');
+var {scrabble, longest} = require('../scrabble.js');
 
 describe('Basic Requirements', function (){
     // scrabble("ladilmy", "daily") -> true
@@ -40,5 +40,25 @@ describe('Wildcard', function (){
 });
 
 describe('Longest From Dictionary', function (){
+    // longest("dcthoyueorza") ->  "coauthored"
+    // longest("uruqrnytrois") -> "turquois"
+    // longest("rryqeiaegicgeo??") -> "greengrocery"
+    // longest("udosjanyuiuebr??") -> "subordinately"
+    // longest("vaakojeaietg????????") -> "ovolactovegetarian"
     
+    it('"dcthoyueorza" -> "coauthored"', function (){
+        expect(longest("dcthoyueorza")).toBe("coauthored");
+    });
+    it('"uruqrnytrois" -> "coauthored"', function (){
+        expect(longest("uruqrnytrois")).toBe("coauthored");
+    });
+    it('"rryqeiaegicgeo??", "greengrocery" -> true', function (){
+        expect(longest("rryqeiaegicgeo??")).toBe("greengrocery");
+    });
+    it('"udosjanyuiuebr??" -> "subordinately"', function (){
+        expect(longest("udosjanyuiuebr??")).toBe("subordinately");
+    });
+    it('"vaakojeaietg????????" -> "ovolactovegetarian"', function (){
+        expect(longest("vaakojeaietg????????")).toBe("ovolactovegetarian");
+    });
 });
