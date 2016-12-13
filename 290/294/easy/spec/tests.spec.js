@@ -46,19 +46,59 @@ describe('Longest From Dictionary', function (){
     // longest("udosjanyuiuebr??") -> "subordinately"
     // longest("vaakojeaietg????????") -> "ovolactovegetarian"
     
-    it('"dcthoyueorza" -> "coauthored"', function (){
-        expect(longest("dcthoyueorza")).toBe("coauthored");
+    it('"dcthoyueorza" -> "coauthored"', function (done){
+        longest("dcthoyueorza")
+        .then((result)=>{
+            expect(result).toBe("coauthored");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
     });
-    it('"uruqrnytrois" -> "coauthored"', function (){
-        expect(longest("uruqrnytrois")).toBe("coauthored");
+    it('"uruqrnytrois" -> "turquois"', function (done){
+        longest("uruqrnytrois")
+        .then((result)=>{
+            expect(result).toBe("turquois");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
     });
-    it('"rryqeiaegicgeo??", "greengrocery" -> true', function (){
-        expect(longest("rryqeiaegicgeo??")).toBe("greengrocery");
+    it('"rryqeiaegicgeo??", "greengrocery" -> true', function (done){
+        longest("rryqeiaegicgeo??")
+        .then((result)=>{
+            expect(result).toBe("greengrocery");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
     });
-    it('"udosjanyuiuebr??" -> "subordinately"', function (){
-        expect(longest("udosjanyuiuebr??")).toBe("subordinately");
+    it('"udosjanyuiuebr??" -> "subordinately"', function (done){
+        longest("udosjanyuiuebr??")
+        .then((result)=>{
+            expect(result).toBe("subordinately");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
     });
-    it('"vaakojeaietg????????" -> "ovolactovegetarian"', function (){
-        expect(longest("vaakojeaietg????????")).toBe("ovolactovegetarian");
+    it('"vaakojeaietg????????" -> "ovolactovegetarian"', function (done){
+        longest("vaakojeaietg????????")
+        .then((result)=>{
+            expect(result).toBe("ovolactovegetarian");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
     });
 });

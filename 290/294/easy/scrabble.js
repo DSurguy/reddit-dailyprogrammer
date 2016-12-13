@@ -1,4 +1,6 @@
-var fs = require('fs');
+var fs = require('fs'),
+    _object = require('lodash/fp/object');
+    
 
 var dictionaryCache = undefined;
 
@@ -23,14 +25,13 @@ var scrabble = function(tiles, word){
     }
     return true;
 };
-var longest = function (tiles){
+var longestRecursive = function (tiles){
     return new Promise((resolve, reject)=>{
         buildDictionaryCache()
         .then(()=>{
-            var tileCount = getTileCounts(tiles);
-            var checkedPaths = {};
+            resolve(getLongestWord(getTileCounts(tiles),dictionaryCache));            
         }).catch((err)=>{
-            throw err;
+            reject(err);
         });
     });
 };
@@ -46,6 +47,10 @@ var buildDictionaryCache = function (){
                 var chunk;
                 while((chunk = rs.read(1)) != null){
                     if( chunk.match(/\r|\n/g) ){
+                        if( curPath !== dictionaryCache ){
+                            //we're in a tile node and need to mark it as a terminus
+                            curPath.terminus = true;
+                        }
                         //newline, we need to start over
                         curPath = dictionaryCache;
                     }
@@ -76,5 +81,63 @@ var getTileCounts = function (tiles){
         return counts;
     }, {});
 }
+//TODO: Recursion with tile counts introduces memory bloat. Refactor.
+var getLongestWord = function (tileCounts, dictionaryNode){
+    var word = undefined;
+    //loop through all possible tiles
+    for( var tile in tileCounts ){
+        //Create updated tile counts to recurse with
+        var updatedCounts = _object.assignIn({}, tileCounts);
+            updatedCounts[tile]--;
+        if( updatedCounts[tile] == 0 ){ delete updatedCounts[tile]; }
 
-module.exports = {scrabble:scrabble, longest:longest};
+        if( tile == '?' ){
+            //wildcard, we need to check ALL possible children
+            for( var child in dictionaryNode ){
+                //recursively build the longest child word
+                var childLongest = getLongestWord(updatedCounts, dictionaryNode[child]);
+                //try to create a childWord based on terminus
+                if( childLongest ){
+                    childWord = child+childLongest;
+                }
+                else if( dictionaryNode[child].terminus ){
+                    childWord = child;
+                }
+
+                //combine with tile and update current longest if possible
+                if( !word || childWord.length > word.length ){
+                    word = childWord;
+                }
+                //take the alphabetically lower result
+                else if( childWord.length == word.length && childWord < word ){
+                    word = childWord;
+                }
+            }
+        }
+        else if( dictionaryNode[tile] !== undefined ){
+            //recursively build the longest child word
+            var childLongest = getLongestWord(updatedCounts, dictionaryNode[tile]),
+                childWord = "";
+            
+            //try to create a childWord based on terminus
+            if( childLongest ){
+                childWord = tile+childLongest;
+            }
+            else if( dictionaryNode[tile].terminus ){
+                childWord = tile;
+            }
+
+            //combine with tile and update current longest if possible
+            if( !word || childWord.length > word.length ){
+                word = childWord;
+            }
+            //take the alphabetically lower result
+            else if( childWord.length == word.length && childWord < word ){
+                word = childWord;
+            }
+        }
+    }
+    return word||undefined;
+}
+
+module.exports = {scrabble:scrabble, longest:longestRecursive};
