@@ -1,4 +1,4 @@
-var scrabble = require('../scrabble.js');
+var {scrabble, longest, highest, buildDictionaryCache} = require('../scrabble.js');
 
 describe('Basic Requirements', function (){
     // scrabble("ladilmy", "daily") -> true
@@ -40,5 +40,141 @@ describe('Wildcard', function (){
 });
 
 describe('Longest From Dictionary', function (){
+    beforeAll((done)=>{
+        buildDictionaryCache().then(done).catch((err)=>{
+            console.error(err);
+            throw err;
+        });
+    });
+    // longest("dcthoyueorza") ->  "coauthored"
+    // longest("uruqrnytrois") -> "turquois"
+    // longest("rryqeiaegicgeo??") -> "greengrocery"
+    // longest("udosjanyuiuebr??") -> "subordinately"
+    // longest("vaakojeaietg????????") -> "ovolactovegetarian"
     
+    it('"dcthoyueorza" -> "coauthored"', function (done){
+        longest("dcthoyueorza")
+        .then((result)=>{
+            expect(result).toBe("coauthored");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"uruqrnytrois" -> "turquois"', function (done){
+        longest("uruqrnytrois")
+        .then((result)=>{
+            expect(result).toBe("turquois");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"rryqeiaegicgeo??", "greengrocery" -> true', function (done){
+        longest("rryqeiaegicgeo??")
+        .then((result)=>{
+            expect(result).toBe("greengrocery");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"udosjanyuiuebr??" -> "subordinately"', function (done){
+        longest("udosjanyuiuebr??")
+        .then((result)=>{
+            expect(result).toBe("subordinately");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"vaakojeaietg????????" -> "ovolactovegetarian"', function (done){
+        longest("vaakojeaietg????????")
+        .then((result)=>{
+            expect(result).toBe("ovolactovegetarian");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+});
+
+describe('highest from dictionary', ()=>{
+    // highest("dcthoyueorza") ->  "zydeco"
+    // highest("uruqrnytrois") -> "squinty"
+    // highest("rryqeiaegicgeo??") -> "reacquiring"
+    // highest("udosjanyuiuebr??") -> "jaybirds"
+    // highest("vaakojeaietg????????") -> "straightjacketed"
+    beforeAll((done)=>{
+        buildDictionaryCache().then(done).catch((err)=>{
+            console.error(err);
+            throw err;
+        });
+    });
+
+    it('"dcthoyueorza" -> "zydeco"', function (done){
+        highest("dcthoyueorza")
+        .then((result)=>{
+            expect(result).toBe("zydeco");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"uruqrnytrois" -> "squinty"', function (done){
+        highest("uruqrnytrois")
+        .then((result)=>{
+            expect(result).toBe("squinty");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"rryqeiaegicgeo??", "reacquiring" -> true', function (done){
+        highest("rryqeiaegicgeo??")
+        .then((result)=>{
+            expect(result).toBe("reacquiring");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"udosjanyuiuebr??" -> "jaybirds"', function (done){
+        highest("udosjanyuiuebr??")
+        .then((result)=>{
+            expect(result).toBe("jaybirds");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
+    it('"vaakojeaietg????????" -> "straightjacketed"', function (done){
+        highest("vaakojeaietg????????")
+        .then((result)=>{
+            expect(result).toBe("straightjacketed");
+            done();
+        }).catch((err)=>{
+            console.error(err);
+            expect(false).toBe(true);
+            done();
+        });
+    });
 });

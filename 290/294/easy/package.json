@@ -4,13 +4,15 @@
   "description": "Today's challenge is inspired by the board game Scrabble. Given a set of 7 letter tiles and a word, determine whether you can make the given word using the given tiles.\r Feel free to format your input and output however you like. You don't need to read from your program's input if you don't want to - you can just write a function that does the logic. I'm representing a set of tiles as a single string, but you can represent it using whatever data structure you want.",
   "main": "index.js",
   "dependencies": {
-    "jasmine": "^2.5.2"
+    "jasmine": "^2.5.2",
+    "lodash": "^4.17.2"
   },
   "devDependencies": {
     "jasmine": "^2.5.2"
   },
   "scripts": {
-    "test": "node ./node_modules/jasmine/bin/jasmine.js"
+    "test": "node ./node_modules/jasmine/bin/jasmine.js",
+    "testDebug": "node ./node_modules/jasmine/bin/jasmine.js --debug-brk --inspect"
   },
   "author": "",
   "license": "ISC"
