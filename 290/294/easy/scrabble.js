@@ -74,6 +74,7 @@ var dictionaryCache = undefined,
         }
     });
 };*/
+
 //build cache as a list for the iterative solution
 function buildDictionaryList(){
     return new Promise((resolve, reject)=>{
@@ -257,6 +258,7 @@ function getLongestWordB(tiles, dictionaryList){
     return longest;
 };
 
+//Return highest value word that can be created using given {tiles}
 function highest(tiles){
     return new Promise((resolve, reject)=>{
         buildDictionaryList()
