@@ -1,0 +1,16 @@
+{
+  "name": "294-intermediate",
+  "version": "0.0.0",
+  "description": "For this challenge, the score of a word is defined as 1x the first letter's point value, plus 2x the second letters, 3x the third letter's, and so on. For instance, the score of the word `daily` is 1x2 + 2x1 + 3x1 + 4x1 + 5x4 = 31. Given a set of 10 tiles, find the highest score possible for a single word from the word list that can be made using the tiles.",
+  "dependencies": {
+    "jasmine": "^2.5.2"
+  },
+  "devDependencies": {
+    "jasmine": "^2.5.2"
+  },
+  "scripts": {
+    "test": "node ./node_modules/jasmine/bin/jasmine.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
