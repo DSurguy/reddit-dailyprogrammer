@@ -1,4 +1,4 @@
-var {scrabble, longest} = require('../scrabble.js');
+var {scrabble, longest, buildDictionaryCache} = require('../scrabble.js');
 
 describe('Basic Requirements', function (){
     // scrabble("ladilmy", "daily") -> true
@@ -40,6 +40,12 @@ describe('Wildcard', function (){
 });
 
 describe('Longest From Dictionary', function (){
+    beforeAll((done)=>{
+        buildDictionaryCache().then(done).catch((err)=>{
+            console.error(err);
+            throw err;
+        });
+    });
     // longest("dcthoyueorza") ->  "coauthored"
     // longest("uruqrnytrois") -> "turquois"
     // longest("rryqeiaegicgeo??") -> "greengrocery"
