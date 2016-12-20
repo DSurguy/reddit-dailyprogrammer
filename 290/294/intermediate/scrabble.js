@@ -74,16 +74,20 @@ function loadDictionary(){
 function prep(){
     return new Promise((resolve, reject)=>{
         loadDictionary().then(()=>{
-            console.log('Starting Prep');
             var timer = process.hrtime();
             if( dictionaryCache[0].points === undefined ){
                 dictionaryCache = dictionaryCache
                 .map((word)=>{
-                    return {
-                        points: Array.prototype.slice.call(word).reduce((total, char, index)=>{return total + points[char]*(index+1)},0),
-                        word: word,
-                        counts: Array.prototype.slice.call(word).reduce((counts, char)=>{counts[char]=(counts[char]?counts[char]+1:1);counts.total++;return counts},{total:0}),
+                    var obj = {
+                        points: 0,
+                        word:word,
+                        counts: {}
                     };
+                    for( var i=0; i<word.length; i++ ){
+                        obj.points += points[word[i]]*(i+1);
+                        obj.counts[word[i]] = (obj.counts[word[i]]||0)+1
+                    }
+                    return obj;
                 })
                 .sort((a,b)=>{
                     if( a.points > b.points ){
@@ -102,12 +106,52 @@ function prep(){
     });
 };
 
-function getDictionary(){
-    return dictionaryCache;
+function highest(tiles){
+    return new Promise((resolve, reject)=>{
+        loadDictionary().then(function (){
+            for( var i=0; i<dictionaryCache.length; i++ ){
+                if( scrabble(tiles, dictionaryCache[i]) ){
+                    resolve(dictionaryCache[i]);
+                    break;
+                }
+            }
+            resolve(undefined);
+        });
+    });
+};
+
+function scrabble(tiles, word){
+    var tileCount = getTileCounts(tiles);
+    //reduce tile counts until we make the word or run out.
+    for( var i=0; i<word.word.length; i++ ){
+        //check and decrement
+        if( !tileCount[word.word[i]] ){
+            //see if we can use a wildcard
+            if( !tileCount['?'] ){
+                //can't make the word, no wildcards to use
+                return false;
+            }
+            else{
+                tileCount['?']--;
+            }
+        } else {
+            tileCount[word.word[i]]--;
+        }
+    }
+    return true;
+}
+
+//utility function to snag tile counts
+function getTileCounts(tiles){
+    var count = {};
+    for( var i=0; i<tiles.length; i++ ){
+        count[tiles[i]] = (count[tiles[i]]||0)+1
+    }
+    return count;
 }
 
 module.exports = {
     loadDictionary: loadDictionary,
     prep: prep,
-    getDictionary: getDictionary
+    highest: highest
 };
