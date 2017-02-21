@@ -1,7 +1,7 @@
 var cleanParens = require('./cleanParens.js');
 
 function testSuite(tests, label){
-    console.log('Running: '+label);
+    console.log('== SUITE: '+label+' ==');
     var result;
     for( var i=0; i<tests.length; i++ ){
         result = undefined;
@@ -24,15 +24,15 @@ function testSuite(tests, label){
 }
 
 var tests = [
-{in: "((a((bc)(de)))f)",    out: "((a((bc)(de)))f)"},
-{in: "(((zbcd)(((e)fg))))", out: "((zbcd)((e)fg))"},
-{in: "ab((c))",             out: "ab(c)"}
+    {in: "((a((bc)(de)))f)",    out: "((a((bc)(de)))f)"},
+    {in: "(((zbcd)(((e)fg))))", out: "((zbcd)((e)fg))"},
+    {in: "ab((c))",             out: "ab(c)"}
 ];
 
 var bonusTests = [
-{in: "()",                  out: ""},
-{in: "((fgh()()()))",       out: "(fgh)"},
-{in: "()(abc())",           out: "(abc)"}
+    {in: "()",                  out: ""},
+    {in: "((fgh()()()))",       out: "(fgh)"},
+    {in: "()(abc())",           out: "(abc)"}
 ];
 
 testSuite(tests, 'Base Tests');
