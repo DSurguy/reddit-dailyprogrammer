@@ -1,0 +1,20 @@
+{
+  "name": "298-easy",
+  "version": "1.0.0",
+  "description": "[2017-01-2] Challenge #298 [Easy] Too many Parentheses",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DSurguy/reddit-dailyprogrammer-200-299.git"
+  },
+  "author": "Surguy.Derek@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DSurguy/reddit-dailyprogrammer-200-299/issues"
+  },
+  "homepage": "https://github.com/DSurguy/reddit-dailyprogrammer-200-299#readme"
+}
