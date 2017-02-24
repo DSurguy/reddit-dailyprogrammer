@@ -1,0 +1,20 @@
+{
+  "name": "298-intermediate",
+  "version": "1.0.0",
+  "description": "[2017-01-04] Challenge #298 [Intermediate] Too many or too few Parentheses",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DSurguy/reddit-dailyprogrammer-200-299.git"
+  },
+  "author": "Surguy.Derek@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DSurguy/reddit-dailyprogrammer-200-299/issues"
+  },
+  "homepage": "https://github.com/DSurguy/reddit-dailyprogrammer-200-299#readme"
+}
